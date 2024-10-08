@@ -5,9 +5,6 @@ from scipy.optimize import NonlinearConstraint, Bounds, differential_evolution
 import pandas as pd
 import matplotlib.pyplot as plt
 
-import matlab.engine as me
-import matlab
-from math import comb
 # ------------------------------
 import csv
 import networkx as nx
@@ -462,7 +459,7 @@ class my_minlp:
         operation_costs = 0
         load_shedding=[918.4e3*365/2*5*yp[0], 1.5501e6*365/2*10*yp[1], 1.1921e6*365/2*5*yp[2]]
         lst=sum(load_shedding)
-       
+
         for i in range(10):
             demand_factor = 1 + (i / 2 * (i % 2 == 0) + math.floor(i / 2) * (i % 2 != 0)) / 100
             demand_factor = demand_factor * (1 * (i % 2 == 0) + 1.05 * (i % 2 != 0))
@@ -526,5 +523,5 @@ with open(r'obj_list.txt', 'w') as fp:
     fp.writelines(str(obj_list))
 with open(r'conv_list.txt', 'w') as fp:
     fp.writelines(str(conv_list))
-    
-    
+
+
