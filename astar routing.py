@@ -1,3 +1,4 @@
+import sys
 import numpy as np
 import math
 # -----------------------------
@@ -5,28 +6,28 @@ import pandas as pd
 # import matplotlib.pyplot as plt
 
 # ------------------------------
-import csv
+#import csv
 import networkx as nx
 
 from qgis.core import QgsApplication, QgsProject, QgsVectorLayer, QgsFeature, QgsGeometry, QgsPoint, \
     QgsProcessingFeedback
 from qgis.analysis import QgsNativeAlgorithms
 
-QgsApplication.setPrefixPath('/usr', True)
-
+QgsApplication.setPrefixPath(sys.prefix, True)
+sys.path.append('/Program Files/QGIS 3.34.6/apps/qgis-ltr/python/plugins')
 from processing.core.Processing import Processing
 import processing
-import time
+
+#import time
 
 # -------------------------------
-
 qgs = QgsApplication([], True)
 qgs.initQgis()
 qgs.processingRegistry().addProvider(QgsNativeAlgorithms())
 Processing.initialize()
 
 registry = QgsProject.instance()
-registry.read('/home/controllab/Downloads/design_optim.qgz')
+registry.read('/design_optim.qgz')
 points = registry.mapLayersByName('grid_slope')
 feats_points = [feat for feat in points[0].getFeatures()]
 overlay = registry.mapLayersByName('area_geo')[0]
@@ -66,7 +67,7 @@ G.add_edges_from([
                      for y in range(numy - 1)
                  ])
 pos = {(x, y): (x, -y) for x, y in G.nodes()}
-with pd.ExcelFile('/home/controllab/Downloads/grid_points.xlsx') as xls:
+with pd.ExcelFile('/grid_points.xlsx') as xls:
     df1 = pd.read_excel(xls, 'RemovedPoints')
     for elem in df1['id']:
         x = (elem // numy) * (elem % numy != 0) + (elem // numy - 1) * (elem % numy == 0)
@@ -105,8 +106,8 @@ class AstarNetworkRouting:
 
         distance = PointList[0].distance(PointList[1])
         # distance = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
-        estimated_cost = 61.1 - 5.75 * 0.000621371 * distance - 1.09 * self.diam + ...
-        0.36 * 0.000621371 * distance * self.diam
+        estimated_cost = 61.1 - 5.75 * 0.000621371 * distance - 1.09 * self.diam + \
+                         0.36 * 0.000621371 * distance * self.diam
 
         if self.distance_based == 1:
             return distance
