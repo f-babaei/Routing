@@ -2,7 +2,7 @@ import numpy as np
 import math
 # -----------------------------
 import pandas as pd
-#import matplotlib.pyplot as plt
+# import matplotlib.pyplot as plt
 
 # ------------------------------
 import csv
@@ -75,12 +75,14 @@ with pd.ExcelFile('/home/controllab/Downloads/grid_points.xlsx') as xls:
 # ----------------problem input
 diameter = {1: 26, 2: 36, 3: 26, 4: 36}
 
+
 # -----------------------------
 class AstarNetworkRouting:
     def __init__(self):
         self.expansion_cache = {}
         self.diam = 0
         self.distance_based = 0
+
     def reset_assign(self):
         pass
 
@@ -103,7 +105,9 @@ class AstarNetworkRouting:
 
         distance = PointList[0].distance(PointList[1])
         # distance = ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** 0.5
-        estimated_cost = 61.1 - 5.75 * 0.000621371 * distance - 1.09 * self.diam + 0.36 * 0.000621371 * distance * self.diam
+        estimated_cost = 61.1 - 5.75 * 0.000621371 * distance - 1.09 * self.diam + ...
+        0.36 * 0.000621371 * distance * self.diam
+
         if self.distance_based == 1:
             return distance
         else:
@@ -181,6 +185,7 @@ class AstarNetworkRouting:
 
     def preparation(self, expansion_result):
         pass
+
     def operation(self, demand_factor):
         pass
 
@@ -201,8 +206,10 @@ class AstarNetworkRouting:
 
     def fill_array(self, a, n):
         pass
+
     def exp_cons(self, x):
         pass
+
     def execute(self, x):
 
         diam, comp_enabled, start_node, end_node = x
@@ -215,6 +222,3 @@ class AstarNetworkRouting:
 exp_test = AstarNetworkRouting()
 input = []
 exp_res = exp_test.execute(input)
-
-
-
